@@ -10,6 +10,9 @@ class BattleScene extends Phaser.Scene {
   }
 
   create() {
+    this.monsters = [];
+    this.projectiles = [];
+    this.magicShots = [];
     this.castleHpMax = 100;
     this.castleHp = this.castleHpMax;
     this.gold = 0;
@@ -45,64 +48,80 @@ class BattleScene extends Phaser.Scene {
   }
 
   drawBackground() {
-    this.add.rectangle(270, 480, 540, 960, 0x1f2937);
-    this.add.rectangle(270, 650, 540, 420, 0x2f5f46);
-    this.add.rectangle(270, 742, 540, 165, 0x3a3f2f);
+    this.add.rectangle(270, 480, 540, 960, 0x4d9b45);
+    this.add.rectangle(270, 520, 540, 880, 0x5aae4f);
+    this.add.rectangle(270, 760, 540, 400, 0x499641);
 
-    const laneY = [360, 500, 640, 780];
+    const laneY = [170, 320, 470, 620, 770, 900];
     laneY.forEach((y) => {
-      this.add.rectangle(335, y, 365, 36, 0x475569, 0.22);
-      this.add.line(335, y + 19, -180, 0, 180, 0, 0xf8fafc, 0.12);
+      this.add.rectangle(340, y, 360, 34, 0x2f6f35, 0.18);
+      this.add.line(340, y + 18, -180, 0, 180, 0, 0xe7f8d9, 0.18);
     });
 
-    this.add.rectangle(84, 585, 40, 650, 0x111827, 0.55);
+    for (let i = 0; i < 70; i += 1) {
+      const x = Phaser.Math.Between(145, 520);
+      const y = Phaser.Math.Between(64, 940);
+      this.add.line(x, y, 0, 0, Phaser.Math.Between(-2, 2), -Phaser.Math.Between(5, 10), 0x8bd46f, 0.35);
+    }
   }
 
   createCastle() {
-    this.castle = this.add.container(86, 590);
-    this.castle.add(this.add.rectangle(0, 52, 92, 430, 0x64748b));
-    this.castle.add(this.add.rectangle(0, -185, 106, 80, 0x94a3b8));
-    this.castle.add(this.add.triangle(-34, -245, 0, 70, 38, 0, 76, 70, 0x334155));
-    this.castle.add(this.add.triangle(34, -245, 0, 70, 38, 0, 76, 70, 0x334155));
-    this.castle.add(this.add.rectangle(0, 186, 44, 90, 0x1e293b));
-    this.castle.add(this.add.circle(0, -64, 18, 0xfacc15));
+    this.castle = this.add.container(66, 480);
+    this.castle.add(this.add.rectangle(0, 0, 120, 960, 0x64748b));
+    this.castle.add(this.add.rectangle(54, 0, 20, 960, 0x334155));
+    this.castle.add(this.add.rectangle(0, -440, 128, 80, 0x94a3b8));
+    this.castle.add(this.add.rectangle(0, 440, 128, 80, 0x475569));
+    this.castle.add(this.add.rectangle(0, 0, 46, 160, 0x1e293b));
+    this.castle.add(this.add.rectangle(0, -250, 52, 82, 0x475569));
+    this.castle.add(this.add.circle(0, -280, 17, 0xfacc15));
 
-    this.castleZone = this.add.zone(120, 590, 38, 650);
+    for (let y = -420; y <= 420; y += 120) {
+      this.castle.add(this.add.rectangle(-36, y, 24, 48, 0x94a3b8));
+      this.castle.add(this.add.rectangle(0, y, 24, 48, 0x94a3b8));
+      this.castle.add(this.add.rectangle(36, y, 24, 48, 0x94a3b8));
+    }
+
+    this.hero = this.add.container(124, 480);
+    this.hero.add(this.add.rectangle(0, 24, 34, 44, 0x1e40af));
+    this.hero.add(this.add.circle(0, -8, 17, 0xffd7a8));
+    this.hero.add(this.add.rectangle(19, 12, 10, 48, 0x111827));
+    this.hero.add(this.add.triangle(28, -16, 0, 0, 34, 12, 0, 24, 0xf8fafc));
+    this.hero.add(this.add.rectangle(0, 50, 44, 10, 0x334155));
+
+    this.castleZone = this.add.zone(134, 480, 34, 960);
     this.physics.add.existing(this.castleZone, true);
   }
 
   createHud() {
-    this.topPanel = this.add.rectangle(270, 50, 500, 72, 0x0f172a, 0.8);
-    this.waveText = this.add.text(44, 30, "", {
-      fontSize: "24px",
+    this.topPanel = this.add.rectangle(270, 18, 540, 34, 0x0f172a, 0.72);
+    this.waveText = this.add.text(16, 8, "", {
+      fontSize: "17px",
       color: "#f8fafc",
       fontStyle: "bold"
     });
-    this.goldText = this.add.text(390, 30, "", {
-      fontSize: "24px",
+    this.goldText = this.add.text(434, 8, "", {
+      fontSize: "17px",
       color: "#fde68a",
       fontStyle: "bold"
     });
 
-    this.hpBack = this.add.rectangle(270, 96, 488, 16, 0x450a0a);
-    this.hpFill = this.add.rectangle(26, 96, 488, 16, 0xef4444).setOrigin(0, 0.5);
-    this.hpText = this.add.text(270, 116, "", {
-      fontSize: "18px",
+    this.hpBack = this.add.rectangle(270, 34, 250, 8, 0x450a0a);
+    this.hpFill = this.add.rectangle(145, 34, 250, 8, 0xef4444).setOrigin(0, 0.5);
+    this.hpText = this.add.text(270, 18, "", {
+      fontSize: "15px",
       color: "#fecaca"
     }).setOrigin(0.5);
 
-    this.magicText = this.add.text(270, 884, "", {
-      fontSize: "20px",
-      color: "#dbeafe",
-      fontStyle: "bold"
-    }).setOrigin(0.5);
-    this.hintText = this.add.text(270, 920, "화면을 터치하면 가장 가까운 적에게 마법 발사", {
-      fontSize: "17px",
-      color: "#cbd5e1"
+    this.magicText = this.add.text(270, 928, "", {
+      fontSize: "18px",
+      color: "#eff6ff",
+      fontStyle: "bold",
+      stroke: "#0f172a",
+      strokeThickness: 4
     }).setOrigin(0.5);
 
-    this.statusText = this.add.text(270, 172, "", {
-      fontSize: "30px",
+    this.statusText = this.add.text(270, 86, "", {
+      fontSize: "28px",
       color: "#ffffff",
       fontStyle: "bold",
       stroke: "#0f172a",
@@ -113,12 +132,12 @@ class BattleScene extends Phaser.Scene {
   }
 
   createInput() {
-    this.input.on("pointerdown", (pointer) => {
+    this.input.on("pointerdown", () => {
       if (this.isGameOver) {
         this.scene.restart();
         return;
       }
-      this.castMagic(pointer.x, pointer.y);
+      this.castMagic();
     });
   }
 
@@ -134,7 +153,7 @@ class BattleScene extends Phaser.Scene {
 
     const boss = this.wave === 3 && !this.isBossWave;
     this.isBossWave = this.isBossWave || boss;
-    const y = boss ? 560 : Phaser.Math.Between(330, 790);
+    const y = boss ? 520 : Phaser.Math.Between(90, 890);
     const monster = this.add.container(570, y);
     const bodyColor = boss ? 0x7c2d12 : 0x7f1d1d;
     const hpMax = boss ? 240 : 40 + this.wave * 16;
@@ -147,7 +166,8 @@ class BattleScene extends Phaser.Scene {
     monster.damage = boss ? 35 : 12;
     monster.isBoss = boss;
 
-    monster.add(this.add.circle(0, 0, boss ? 34 : 22, bodyColor));
+    monster.add(this.add.circle(0, 0, boss ? 34 : 22, 0x111827));
+    monster.add(this.add.circle(0, 0, boss ? 29 : 18, bodyColor));
     monster.add(this.add.circle(-8, -8, boss ? 6 : 4, 0xfef2f2));
     monster.add(this.add.circle(10, -8, boss ? 6 : 4, 0xfef2f2));
     monster.add(this.add.rectangle(0, boss ? 42 : 30, boss ? 72 : 48, 7, 0x111827));
@@ -169,28 +189,29 @@ class BattleScene extends Phaser.Scene {
     if (!target) {
       return;
     }
-    this.fireProjectile(135, 520, target, 18, 0xfacc15, 470, this.projectiles);
+    this.fireProjectile(148, 474, target, 18, 0xfff7ed, 470, this.projectiles);
   }
 
-  castMagic(x, y) {
+  castMagic() {
     if (this.magicCharges <= 0) {
       this.flashStatus("마법 충전 중");
       return;
     }
-    const target = this.findNearestMonster(x, y);
+    const target = this.findNearestMonster();
     if (!target) {
-      this.flashStatus("대상이 없음");
+      this.flashStatus("대상 없음");
       return;
     }
 
     this.magicCharges -= 1;
-    this.fireProjectile(x, y, target, 65, 0x38bdf8, 620, this.magicShots);
+    this.fireProjectile(148, 474, target, 65, 0x7dd3fc, 620, this.magicShots);
     this.cameras.main.flash(90, 59, 130, 246, false);
     this.updateHud();
   }
 
   fireProjectile(x, y, target, damage, color, speed, bucket) {
-    const shot = this.add.circle(x, y, damage > 40 ? 10 : 7, color);
+    const shot = this.add.circle(x, y, damage > 40 ? 12 : 8, color);
+    shot.setStrokeStyle(damage > 40 ? 4 : 3, damage > 40 ? 0x082f49 : 0x7c2d12);
     shot.target = target;
     shot.damage = damage;
     this.physics.add.existing(shot);
@@ -239,7 +260,7 @@ class BattleScene extends Phaser.Scene {
         this.monsters.splice(i, 1);
         continue;
       }
-      if (monster.x <= 132) {
+      if (monster.x <= 134) {
         this.castleHp = Math.max(0, this.castleHp - monster.damage);
         this.cameras.main.shake(160, 0.008);
         monster.destroy();
@@ -315,7 +336,7 @@ class BattleScene extends Phaser.Scene {
     this.updateHud();
   }
 
-  findNearestMonster(x = 140, y = 520) {
+  findNearestMonster(x = 148, y = 474) {
     let nearest = null;
     let bestDistance = Infinity;
     this.monsters.forEach((monster) => {
@@ -334,8 +355,8 @@ class BattleScene extends Phaser.Scene {
   updateHud() {
     this.waveText.setText(`Wave ${this.wave}/3`);
     this.goldText.setText(`Gold ${this.gold}`);
-    this.hpFill.width = 488 * (this.castleHp / this.castleHpMax);
-    this.hpText.setText(`Castle HP ${this.castleHp}/${this.castleHpMax}`);
+    this.hpFill.width = 250 * (this.castleHp / this.castleHpMax);
+    this.hpText.setText(`HP ${this.castleHp}/${this.castleHpMax}`);
     this.magicText.setText(`마법 ${this.magicCharges}/${this.magicMaxCharges}`);
   }
 
@@ -357,7 +378,7 @@ class BattleScene extends Phaser.Scene {
     this.attackTimer.remove(false);
     this.statusText.setText(victory ? "전투 승리!" : "게임 오버");
     this.statusText.setAlpha(1);
-    this.hintText.setText("다시 시작하려면 화면을 터치");
+    this.magicText.setText("터치하여 다시 시작");
   }
 
   removeFrom(bucket, item, index) {
@@ -371,7 +392,7 @@ const config = {
   parent: "game",
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
-  backgroundColor: "#111827",
+  backgroundColor: "#4d9b45",
   physics: {
     default: "arcade",
     arcade: {
