@@ -1,0 +1,21 @@
+{
+  "stages": [
+    {
+      "id": 1,
+      "name": "초원 전초기지",
+      "waves": [
+        { "enemies": [{ "type": "normal", "count": 4 }] },
+        { "enemies": [{ "type": "normal", "count": 5 }] },
+        { "enemies": [{ "type": "normal", "count": 6 }] }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "바람길 경계선",
+      "waves": [
+        { "enemies": [{ "type": "normal", "count": 5 }, { "type": "scout", "count": 3 }] },
+        { "enemies": [{ "type": "normal", "count": 4 }, { "type": "tank", "count": 2 }] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+.power-button { width: 100%; cursor: pointer; margin-top: 9px; border: 1px solid #e59a4b; padding: 10px; color: #ffe2af; background: #332015; font: 700 11px Orbitron; }
+.power-button:hover { background: #54341a; }.power-button:disabled { cursor: default; opacity: .45; }.power-button span { float: right; color: #ffb95c; }

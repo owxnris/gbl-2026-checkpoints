@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko">
   <head>
+<<<<<<< HEAD
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Castle Defense Battle</title>
@@ -12,5 +13,58 @@
       <div id="game"></div>
     </main>
     <script src="src/main.js"></script>
+=======
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Bastion — Tower Defense</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="stage.css" />
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="topbar">
+        <div class="resources">
+          <div class="resource"><span>⚡</span><strong id="energy">120</strong></div>
+          <div class="resource"><span>☄</span><strong id="wave">1 / 5</strong></div>
+          <div class="resource base"><span>♥</span><strong id="base-health">20</strong></div>
+        </div>
+      </header>
+
+      <section class="battle-layout" aria-label="타워 디펜스 전투 화면">
+        <div class="game-wrap">
+          <div id="game" aria-label="게임 캔버스"></div>
+          <div class="hint">빈 설치 지점을 클릭해 타워를 배치하세요</div>
+        </div>
+        <aside class="panel">
+          <div class="panel-status"><small id="game-state">준비 완료</small></div>
+          <div class="tower-card selected" data-tower="pulse">
+            <div class="tower-icon pulse-icon">✦</div>
+            <div><b>펄스 포탑</b><span>빠른 단일 공격</span></div><em>50</em>
+          </div>
+          <div class="tower-card" data-tower="arc">
+            <div class="tower-icon arc-icon">ϟ</div>
+            <div><b>아크 코일</b><span>연쇄 전기 공격</span></div><em>75</em>
+          </div>
+          <div class="tower-card" data-tower="nova">
+            <div class="tower-icon nova-icon">✹</div>
+            <div><b>노바 캐논</b><span>강력한 범위 공격</span></div><em>100</em>
+          </div>
+          <div class="divider"></div>
+          <div class="selected-info">
+            <span class="eyebrow">SELECTED UNIT</span>
+            <h2 id="selected-name">펄스 포탑</h2>
+            <p id="selected-desc">가장 가까운 적에게 에너지 펄스를 발사합니다.</p>
+            <div class="stats"><span>DMG <b id="stat-damage">8</b></span><span>RNG <b id="stat-range">120</b></span><span>SPD <b id="stat-speed">0.55s</b></span></div>
+          </div>
+          <button id="start-wave" class="wave-button">WAVE 01 시작 <span>›</span></button>
+          <p class="controls">R: 파동 시작 · SPACE: 영웅 강공 · ESC: 선택 해제</p>
+          <button id="power-shot" class="power-button">영웅 강공 <span id="power-state">준비</span></button>
+        </aside>
+      </section>
+    </main>
+    <script src="game.js"></script>
+    <script src="stage.js"></script>
+>>>>>>> 937ee7416f41418ec0af696a27332f1f5315bf79
   </body>
 </html>

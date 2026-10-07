@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html,
 body {
   width: 100%;
@@ -25,3 +26,19 @@ body {
 canvas {
   display: block;
 }
+=======
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap');
+
+:root { color-scheme: dark; --cyan: #55f4ff; --violet: #9d71ff; --ink: #07101c; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 900px; min-height: 100vh; color: #e9f9ff; background: #172c18; font-family: Rajdhani, sans-serif; }
+.game-shell { width: min(1500px, 100vw); min-height: 100vh; margin: 0 auto; border-inline: 1px solid #244661; box-shadow: 0 0 35px #000b; background: #090f1d; }
+.topbar { height: 15px; display: flex; align-items:stretch; justify-content:flex-end; padding: 0 9px; border-bottom: 1px solid #234157; background: #0a1524; overflow:hidden; }
+.resources { display: flex; gap: 5px; }.resource { min-width: 54px; display: flex; align-items: center; justify-content:center; gap: 3px; padding: 0 5px; border-inline: 1px solid #28455e; background: #0a1524; font-family: Orbitron, sans-serif; font-size: 8px; }.resource span { color: #fee17d; font-size:8px; }.resource.base span { color: #ff677e; }
+.battle-layout { display: grid; grid-template-columns: minmax(0, 1fr) 280px; min-height: calc(100vh - 15px); }.game-wrap { position: relative; min-width: 0; background: #285a2c; }.hint { position: absolute; left: 18px; bottom: 15px; color: #d7edb9; text-shadow:0 1px 2px #173618; font-size: 14px; letter-spacing: .4px; pointer-events: none; }
+#game, #game canvas { height: 100% !important; } #game canvas { display: block; width: 100% !important; object-fit:fill; }
+.panel { padding: 16px 17px; border-left: 1px solid #234157; background: linear-gradient(180deg, #0d1727, #080e19); }.panel-status { height: 12px; text-align:right; margin-bottom:6px; }.panel-status small { color: #7592a5; font-family: Rajdhani; font-size: 12px; }
+.tower-card { cursor: pointer; display: grid; grid-template-columns: 39px 1fr auto; gap: 10px; align-items: center; min-height: 65px; margin: 8px 0; padding: 8px; border: 1px solid transparent; background: #0b1523; transition: .18s; }.tower-card:hover, .tower-card.selected { border-color: #3b9eb7; background: #10253a; box-shadow: inset 3px 0 #51efff; }.tower-card b { display: block; font-size: 16px; }.tower-card span { display: block; color: #7797aa; font-size: 12px; }.tower-card em { color: #ffe07d; font-style: normal; font-family: Orbitron; font-size: 12px; }.tower-icon { display: grid; place-items: center; width: 37px; height: 37px; font-family: Orbitron; font-size: 24px; border: 1px solid; }.pulse-icon { color: #69f4ff; border-color: #31869c; }.arc-icon { color: #a68bff; border-color: #6552a1; }.nova-icon { color: #ff8a70; border-color: #9b5346; }
+.divider { margin: 21px 0; border-top: 1px solid #23384c; }.eyebrow { color: #6d9db6; font-family: Orbitron; font-size: 9px; letter-spacing: 1.3px; }.selected-info h2 { margin: 6px 0 5px; font-size: 22px; }.selected-info p { min-height: 37px; margin: 0; color: #86a7ba; font-size: 13px; line-height: 1.25; }.stats { display: flex; justify-content: space-between; margin: 16px 0 22px; padding: 10px 0; border-top: 1px solid #203548; border-bottom: 1px solid #203548; color: #7898ac; font-family: Orbitron; font-size: 9px; }.stats b { display: block; margin-top: 4px; color: #e6faff; font-size: 12px; }.wave-button { width: 100%; cursor: pointer; border: 1px solid #4ac5d7; padding: 14px; color: #05111a; background: linear-gradient(90deg, #42d5dc, #8b8bff); font: 700 13px Orbitron; box-shadow: 0 0 18px #3ec8d544; }.wave-button:hover { filter: brightness(1.15); }.wave-button:disabled { cursor: default; filter: grayscale(.6); opacity: .6; }.wave-button span { float: right; font-size: 20px; line-height: 11px; }.controls { margin: 14px 0 0; text-align: center; color: #577589; font-size: 12px; }
+@media (max-width: 950px) { body { min-width: 0; }.game-shell { width: 100%; margin: 0; }.battle-layout { grid-template-columns: 1fr; }.panel { border-left: 0; border-top: 1px solid #234157; }.topbar { padding: 0 4px; }.resources { gap: 2px; }.resource { min-width: auto; padding: 0 4px; } }
+>>>>>>> 937ee7416f41418ec0af696a27332f1f5315bf79
